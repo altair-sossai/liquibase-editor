@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiquibaseEditor", "LiquibaseEditor\LiquibaseEditor.csproj", "{5D2334BC-A205-4A6C-A909-DCCDAE7B6D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiquibaseEditor.UnitTest", "LiquibaseEditor.UnitTest\LiquibaseEditor.UnitTest.csproj", "{DA5973D1-0CD6-4B17-88C0-1F0A0D6FAC27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D2334BC-A205-4A6C-A909-DCCDAE7B6D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2334BC-A205-4A6C-A909-DCCDAE7B6D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2334BC-A205-4A6C-A909-DCCDAE7B6D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2334BC-A205-4A6C-A909-DCCDAE7B6D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5973D1-0CD6-4B17-88C0-1F0A0D6FAC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5973D1-0CD6-4B17-88C0-1F0A0D6FAC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5973D1-0CD6-4B17-88C0-1F0A0D6FAC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5973D1-0CD6-4B17-88C0-1F0A0D6FAC27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {599F36DF-BC8B-418E-BE40-20836004D80C}
+	EndGlobalSection
+EndGlobal
