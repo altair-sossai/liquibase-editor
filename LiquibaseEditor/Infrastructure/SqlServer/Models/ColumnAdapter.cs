@@ -14,7 +14,7 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.Models
             {
                 _dataType = value;
 
-                switch (value)
+                switch (value?.ToLower())
                 {
                     case "bit":
                         Type = ColumnType.Bit;

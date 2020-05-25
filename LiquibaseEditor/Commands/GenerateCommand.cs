@@ -5,18 +5,20 @@ namespace LiquibaseEditor.Commands
 {
     public class GenerateCommand : INotifyPropertyChanged
     {
-        private string _author = "altair.sossai";
-        private string _connectionString = "Server=localhost;Database=FC_SIMPLEFARM_DEV2004;User Id=sa;Password=ef66b58b-6ff2-4c78-bcec-6b279312b625;";
-        private string _database = "SQL Server";
-        private string _directoryPath = @"E:\liquibase-editor";
-        private string _tableNames = "GA_TIMESHEET; GA_TIMESHEET_ITEM";
+        private string _author;
+        private string _connectionString;
+        private string _database;
+        private string _directoryPath;
+        private string _tableNames;
 
         public string Database
         {
             get => _database;
             set
             {
-                if (value == _database) return;
+                if (value == _database)
+                    return;
+
                 _database = value;
                 OnPropertyChanged();
             }
@@ -27,7 +29,9 @@ namespace LiquibaseEditor.Commands
             get => _connectionString;
             set
             {
-                if (value == _connectionString) return;
+                if (value == _connectionString)
+                    return;
+
                 _connectionString = value;
                 OnPropertyChanged();
             }
@@ -38,18 +42,24 @@ namespace LiquibaseEditor.Commands
             get => _tableNames;
             set
             {
-                if (value == _tableNames) return;
+                if (value == _tableNames)
+                    return;
+
                 _tableNames = value;
                 OnPropertyChanged();
             }
         }
+
+        public bool AllTables => TableNames?.Equals("*") ?? false;
 
         public string DirectoryPath
         {
             get => _directoryPath;
             set
             {
-                if (value == _directoryPath) return;
+                if (value == _directoryPath)
+                    return;
+
                 _directoryPath = value;
                 OnPropertyChanged();
             }
@@ -60,7 +70,9 @@ namespace LiquibaseEditor.Commands
             get => _author;
             set
             {
-                if (value == _author) return;
+                if (value == _author)
+                    return;
+
                 _author = value;
                 OnPropertyChanged();
             }

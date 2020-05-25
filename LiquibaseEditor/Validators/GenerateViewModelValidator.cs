@@ -50,6 +50,9 @@ namespace LiquibaseEditor.Validators
         {
             try
             {
+                if (command.AllTables)
+                    return true;
+
                 var names = TableHelper.ParseTableNames(tableNames);
 
                 using var unitOfWork = UnitOfWorkFactory.New(command.Database, command.ConnectionString);

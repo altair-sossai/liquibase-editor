@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using LiquibaseEditor.Commands;
+using LiquibaseEditor.Extensions;
 using LiquibaseEditor.Factories;
 using LiquibaseEditor.Services;
 using LiquibaseEditor.Validators;
@@ -11,17 +13,58 @@ namespace LiquibaseEditor.ViewModels
 {
     public class GenerateViewModel
     {
+        private GenerateCommand _command;
+
         public GenerateViewModel()
         {
-            Command = new GenerateCommand();
+            Command = new GenerateCommand
+            {
+                Author = "altair.sossai",
+                Database = "SQL Server",
+                DirectoryPath = @"E:\liquibase-editor",
+                TableNames = "GA_TIMESHEET; GA_TIMESHEET_ITEM"
+            };
+
+            Command.UseSqlServerDefaultConfiguration();
         }
 
         public List<string> Databases { get; set; } = new List<string>
         {
-            "SQL Server"
+            "SQL Server",
+            "Oracle"
         };
 
-        public GenerateCommand Command { get; set; }
+        public GenerateCommand Command
+        {
+            get => _command;
+            set
+            {
+                _command = value;
+
+                if (_command == null)
+                    return;
+
+                _command.PropertyChanged -= CommandPropertyChanged;
+                _command.PropertyChanged += CommandPropertyChanged;
+            }
+        }
+
+        private void CommandPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!e.PropertyName.Equals(nameof(GenerateCommand.Database)))
+                return;
+
+            switch (Command.Database)
+            {
+                case "SQL Server":
+                    Command.UseSqlServerDefaultConfiguration();
+                    break;
+
+                case "Oracle":
+                    Command.UseOracleDefaultConfiguration();
+                    break;
+            }
+        }
 
         public void Generate()
         {

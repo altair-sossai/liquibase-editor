@@ -29,5 +29,17 @@ namespace LiquibaseEditor.UnitTest.Infrastructure.SqlServer.Repositories
 
             Assert.AreNotEqual(0, columns.Count);
         }
+
+
+        [TestMethod]
+        public void GetForeignKeys()
+        {
+            using var unitOfWork = UnitOfWorkSqlServerDatabaseBuilder.New();
+
+            var tableRepository = new TableRepositorySqlServer(unitOfWork);
+            var columns = tableRepository.GetForeignKeys("GA_TIMESHEET");
+
+            Assert.AreNotEqual(0, columns.Count);
+        }
     }
 }

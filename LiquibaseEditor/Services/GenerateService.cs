@@ -35,7 +35,7 @@ namespace LiquibaseEditor.Services
         private void CreateTable(GenerateCommand command)
         {
             var tables = _tableRepository.GetAll();
-            var tableNames = TableHelper.ParseTableNames(command.TableNames);
+            var tableNames = command.AllTables ? tables.Select(t => t.Name).ToList() : TableHelper.ParseTableNames(command.TableNames);
 
             foreach (var tableName in tableNames)
             {
