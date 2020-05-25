@@ -35,7 +35,7 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.Repositories
 	                                      CASE WHEN tcfk.CONSTRAINT_TYPE = 'FOREIGN KEY' THEN 1 ELSE 0 END AS ForeignKey,
 	                                      CASE WHEN c.IS_NULLABLE = 'NO' THEN 0 ELSE 1 END AS Nullable,
 	                                      c.DATA_TYPE AS DataType,
-	                                      c.CHARACTER_MAXIMUM_LENGTH AS Length,
+	                                      CASE WHEN c.CHARACTER_MAXIMUM_LENGTH = -1 THEN 5000 ELSE c.CHARACTER_MAXIMUM_LENGTH END AS Length,
 	                                      c.NUMERIC_PRECISION AS Precision,
 	                                      c.NUMERIC_SCALE AS Scale,
 	                                      c.ORDINAL_POSITION
