@@ -13,7 +13,7 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
         private readonly SqlConnection _connection;
         private readonly SqlTransaction _transaction;
         private bool _disposed;
-        private bool _transactionHasOpen;
+        private readonly bool _transactionHasOpen;
 
         public UnitOfWorkSqlServerDatabase(string connectionString)
         {
@@ -53,24 +53,6 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
             _disposed = true;
         }
 
-        public void Commit()
-        {
-            if (!_transactionHasOpen)
-                throw new InvalidOperationException();
-
-            _transaction.Commit();
-            _transactionHasOpen = false;
-        }
-
-        public void RollBack()
-        {
-            if (!_transactionHasOpen)
-                throw new InvalidOperationException();
-
-            _transaction.Rollback();
-            _transactionHasOpen = false;
-        }
-
         public List<T> Query<T>(string query)
         {
             return _connection.Query<T>(query, null, _transaction).ToList();
@@ -79,17 +61,6 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
         public List<T> Query<T>(string query, object param)
         {
             return _connection.Query<T>(query, param, _transaction).ToList();
-        }
-
-        public IEnumerable<dynamic> Query(string query, object param)
-        {
-            return _connection.Query(query, param, _transaction);
-        }
-
-        public int Execute<T>(string query, T t)
-        {
-            var count = _connection.Execute(query, t, _transaction);
-            return count;
         }
     }
 }

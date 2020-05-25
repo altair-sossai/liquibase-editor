@@ -40,21 +40,21 @@ namespace LiquibaseEditor.Builders
                     TableName = _table.Name,
                     Remarks = _table.Name,
                     SchemaName = "${dbSchemaName}",
-                    Column = BuildColumns(command)
+                    Column = BuildColumns()
                 }
             };
 
             return changeSet;
         }
 
-        private List<CreateTableChangeSet.ColumnElement> BuildColumns(ChangeSetCommand command)
+        private List<CreateTableChangeSet.ColumnElement> BuildColumns()
         {
             return _columns
-                .Select(column => BuildColumn(command, column))
+                .Select(BuildColumn)
                 .ToList();
         }
 
-        private CreateTableChangeSet.ColumnElement BuildColumn(ChangeSetCommand command, Column column)
+        private CreateTableChangeSet.ColumnElement BuildColumn(Column column)
         {
             return new CreateTableChangeSet.ColumnElement
             {
