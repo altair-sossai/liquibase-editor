@@ -2,9 +2,9 @@
 
 O objetivo do projeto é facilitar a geração de scripts Liquibase utilizando o banco de dados como referência;
 
-A aplicação se conecta atualmente apenas em uma base de dados SQL Server e realiza a engenharia reversa, transformando tabelas, colunas, chaves primarias e chaves estrangeiras em scripts Liquibase;
+A aplicação se conecta atualmente apenas em bases SQL Server ou Oracle e realiza a engenharia reversa, transformando tabelas, colunas, chaves primarias e chaves estrangeiras em scripts Liquibase;
 
-Com o passar do tempo o objetivo é expandir para a utilização de outras bases de dados como por exemplo Oracle e MySQL;
+Com o passar do tempo o objetivo é expandir para a utilização de outras bases de dados como por exemplo PostgreSQL e MySQL;
 
 ## Script de criação da tabela:
 
