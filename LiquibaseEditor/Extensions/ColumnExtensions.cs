@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using LiquibaseEditor.ChangeSetTypes;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 using LiquibaseEditor.Entities;
 
 namespace LiquibaseEditor.Extensions
@@ -25,9 +25,9 @@ namespace LiquibaseEditor.Extensions
             };
         }
 
-        public static CreateTableChangeSet.ConstraintsElement ConstraintsElement(this Column column, Table table)
+        public static ConstraintsElement ConstraintsElement(this Column column, Table table)
         {
-            return new CreateTableChangeSet.ConstraintsElement
+            return new ConstraintsElement
             {
                 Nullable = column.Nullable ? "true" : "false",
                 PrimaryKey = column.PrimaryKey ? "true" : null,

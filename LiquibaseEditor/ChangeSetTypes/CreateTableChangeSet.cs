@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 
 namespace LiquibaseEditor.ChangeSetTypes
 {
@@ -41,38 +42,6 @@ namespace LiquibaseEditor.ChangeSetTypes
 
             [XmlAttribute(AttributeName = "onFail")]
             public string OnFail { get; set; }
-        }
-
-        [XmlRoot(ElementName = "constraints")]
-        public class ConstraintsElement
-        {
-            [XmlAttribute(AttributeName = "primaryKey")]
-            public string PrimaryKey { get; set; }
-
-            [XmlAttribute(AttributeName = "primaryKeyName")]
-            public string PrimaryKeyName { get; set; }
-
-            [XmlAttribute(AttributeName = "nullable")]
-            public string Nullable { get; set; }
-        }
-
-        [XmlRoot(ElementName = "column")]
-        public class ColumnElement
-        {
-            [XmlElement(ElementName = "constraints")]
-            public ConstraintsElement Constraints { get; set; }
-
-            [XmlAttribute(AttributeName = "name")]
-            public string Name { get; set; }
-
-            [XmlAttribute(AttributeName = "type")]
-            public string Type { get; set; }
-
-            [XmlAttribute(AttributeName = "autoIncrement")]
-            public string AutoIncrement { get; set; }
-
-            [XmlAttribute(AttributeName = "remarks")]
-            public string Remarks { get; set; }
         }
 
         [XmlRoot(ElementName = "createTable")]

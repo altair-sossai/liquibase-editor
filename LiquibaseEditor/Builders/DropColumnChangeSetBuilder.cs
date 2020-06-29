@@ -1,4 +1,5 @@
 ﻿using LiquibaseEditor.ChangeSetTypes;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 using LiquibaseEditor.Commands;
 using LiquibaseEditor.Entities;
 
@@ -24,7 +25,7 @@ namespace LiquibaseEditor.Builders
                 PreConditions = new DropColumnChangeSet.PreConditionsElement
                 {
                     OnFail = "MARK_RAN",
-                    ColumnExists = new DropColumnChangeSet.ColumnExistsElement
+                    ColumnExists = new ColumnExistsElement
                     {
                         ColumnName = _column.Name,
                         TableName = _table.Name

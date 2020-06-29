@@ -1,7 +1,8 @@
-﻿using LiquibaseEditor.ChangeSetTypes;
+﻿using LiquibaseEditor.Builders.Elements;
+using LiquibaseEditor.ChangeSetTypes;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 using LiquibaseEditor.Commands;
 using LiquibaseEditor.Entities;
-using LiquibaseEditor.Extensions;
 
 namespace LiquibaseEditor.Builders
 {
@@ -18,6 +19,8 @@ namespace LiquibaseEditor.Builders
 
         public AddColumnChangeSet Build(ChangeSetCommand command)
         {
+            var columnBuilder = new ColumnElementBuilder(_table);
+
             return new AddColumnChangeSet
             {
                 Id = command.Id,
@@ -28,7 +31,7 @@ namespace LiquibaseEditor.Builders
                     OnFailMessage = "Campo já existe",
                     Not = new AddColumnChangeSet.NotElement
                     {
-                        ColumnExists = new AddColumnChangeSet.ColumnExistsElement
+                        ColumnExists = new ColumnExistsElement
                         {
                             ColumnName = _column.Name,
                             TableName = _table.Name
@@ -39,11 +42,7 @@ namespace LiquibaseEditor.Builders
                 {
                     SchemaName = "${dbSchemaName}",
                     TableName = _table.Name,
-                    Column = new AddColumnChangeSet.ColumnElement
-                    {
-                        Name = _column.Name,
-                        Type = _column.ColumnType()
-                    }
+                    Column = columnBuilder.Build(_column)
                 }
             };
         }

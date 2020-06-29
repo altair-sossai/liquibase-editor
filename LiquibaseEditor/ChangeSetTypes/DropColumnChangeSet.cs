@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 
 namespace LiquibaseEditor.ChangeSetTypes
 {
@@ -17,16 +18,6 @@ namespace LiquibaseEditor.ChangeSetTypes
         [XmlAttribute(AttributeName = "author")]
         public string Author { get; set; }
 
-
-        [XmlRoot(ElementName = "columnExists")]
-        public class ColumnExistsElement
-        {
-            [XmlAttribute(AttributeName = "columnName")]
-            public string ColumnName { get; set; }
-
-            [XmlAttribute(AttributeName = "tableName")]
-            public string TableName { get; set; }
-        }
 
         [XmlRoot(ElementName = "preConditions")]
         public class PreConditionsElement

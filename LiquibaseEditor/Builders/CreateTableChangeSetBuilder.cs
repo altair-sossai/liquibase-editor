@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using LiquibaseEditor.Builders.Elements;
 using LiquibaseEditor.ChangeSetTypes;
 using LiquibaseEditor.Commands;
 using LiquibaseEditor.Entities;
-using LiquibaseEditor.Extensions;
 
 namespace LiquibaseEditor.Builders
 {
@@ -20,6 +19,8 @@ namespace LiquibaseEditor.Builders
 
         public CreateTableChangeSet Build(ChangeSetCommand command)
         {
+            var columnBuilder = new ColumnElementBuilder(_table);
+
             var changeSet = new CreateTableChangeSet
             {
                 Id = command.Id,
@@ -40,30 +41,11 @@ namespace LiquibaseEditor.Builders
                     TableName = _table.Name,
                     Remarks = _table.Name,
                     SchemaName = "${dbSchemaName}",
-                    Column = BuildColumns()
+                    Column = columnBuilder.Build(_columns)
                 }
             };
 
             return changeSet;
-        }
-
-        private List<CreateTableChangeSet.ColumnElement> BuildColumns()
-        {
-            return _columns
-                .Select(BuildColumn)
-                .ToList();
-        }
-
-        private CreateTableChangeSet.ColumnElement BuildColumn(Column column)
-        {
-            return new CreateTableChangeSet.ColumnElement
-            {
-                Name = column.Name,
-                Type = column.ColumnType(),
-                Remarks = column.Name,
-                AutoIncrement = column.AutoIncrement ? "${autoIncrement}" : null,
-                Constraints = column.ConstraintsElement(_table)
-            };
         }
     }
 }

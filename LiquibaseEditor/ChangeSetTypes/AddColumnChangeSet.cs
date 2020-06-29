@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using LiquibaseEditor.ChangeSetTypes.Elements;
 
 namespace LiquibaseEditor.ChangeSetTypes
 {
@@ -16,16 +17,6 @@ namespace LiquibaseEditor.ChangeSetTypes
 
         [XmlAttribute(AttributeName = "author")]
         public string Author { get; set; }
-
-        [XmlRoot(ElementName = "columnExists")]
-        public class ColumnExistsElement
-        {
-            [XmlAttribute(AttributeName = "columnName")]
-            public string ColumnName { get; set; }
-
-            [XmlAttribute(AttributeName = "tableName")]
-            public string TableName { get; set; }
-        }
 
         [XmlRoot(ElementName = "not")]
         public class NotElement
@@ -45,16 +36,6 @@ namespace LiquibaseEditor.ChangeSetTypes
 
             [XmlAttribute(AttributeName = "onFailMessage")]
             public string OnFailMessage { get; set; }
-        }
-
-        [XmlRoot(ElementName = "column")]
-        public class ColumnElement
-        {
-            [XmlAttribute(AttributeName = "name")]
-            public string Name { get; set; }
-
-            [XmlAttribute(AttributeName = "type")]
-            public string Type { get; set; }
         }
 
         [XmlRoot(ElementName = "addColumn")]

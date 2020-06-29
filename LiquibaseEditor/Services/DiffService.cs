@@ -35,6 +35,7 @@ namespace LiquibaseEditor.Services
 
             DropColumns(command);
             AddColumns(command);
+            AddForeignKeys(command);
         }
 
         private void DropColumns(DiffCommand command)
@@ -50,20 +51,20 @@ namespace LiquibaseEditor.Services
         {
             var sourceColumns = _sourceTableRepository.GetColumns(table.Name);
             var targetColumns = _targetTableRepository.GetColumns(table.Name);
-            var dropColumns = targetColumns.Where(t => sourceColumns.All(s => s.Name != t.Name)).ToList();
+            var columns = targetColumns.Where(t => sourceColumns.All(s => s.Name != t.Name)).ToList();
 
-            foreach (var dropColumn in dropColumns)
-                DropColumn(command, table, dropColumn);
+            foreach (var column in columns)
+                DropColumn(command, table, column);
         }
 
-        private static void DropColumn(DiffCommand command, Table table, Column dropColumn)
+        private static void DropColumn(DiffCommand command, Table table, Column column)
         {
             var changeSetCommand = new ChangeSetCommand(command.Author);
-            var builder = new DropColumnChangeSetBuilder(table, dropColumn);
+            var builder = new DropColumnChangeSetBuilder(table, column);
             var changeSet = builder.Build(changeSetCommand);
 
             var xml = changeSet.ToXml();
-            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{dropColumn.Name.ToLower()}.drop.xml");
+            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.drop.xml");
             WriteFile(path, xml);
 
             ChangeSetCommand.Next();
@@ -82,20 +83,70 @@ namespace LiquibaseEditor.Services
         {
             var sourceColumns = _sourceTableRepository.GetColumns(table.Name);
             var targetColumns = _targetTableRepository.GetColumns(table.Name);
-            var dropColumns = sourceColumns.Where(t => targetColumns.All(s => s.Name != t.Name)).ToList();
+            var columns = sourceColumns.Where(t => targetColumns.All(s => s.Name != t.Name)).ToList();
 
-            foreach (var dropColumn in dropColumns)
-                AddColumn(command, table, dropColumn);
+            foreach (var column in columns)
+            {
+                AddColumn(command, table, column);
+
+                if (column.AutoIncrement)
+                    CreateSequence(command, table, column);
+            }
         }
 
-        private static void AddColumn(DiffCommand command, Table table, Column dropColumn)
+        private static void AddColumn(DiffCommand command, Table table, Column column)
         {
             var changeSetCommand = new ChangeSetCommand(command.Author);
-            var builder = new AddColumnChangeSetBuilder(table, dropColumn);
+            var builder = new AddColumnChangeSetBuilder(table, column);
             var changeSet = builder.Build(changeSetCommand);
 
             var xml = changeSet.ToXml();
-            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{dropColumn.Name.ToLower()}.add.xml");
+            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.add.xml");
+            WriteFile(path, xml);
+
+            ChangeSetCommand.Next();
+        }
+
+        private static void CreateSequence(DiffCommand command, Table table, Column column)
+        {
+            var changeSetCommand = new ChangeSetCommand(command.Author);
+            var builder = new CreateSequenceChangeSetBuilder(table);
+            var changeSet = builder.Build(changeSetCommand);
+
+            var xml = changeSet.ToXml();
+            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.sequence.xml");
+            WriteFile(path, xml);
+
+            ChangeSetCommand.Next();
+        }
+
+        private void AddForeignKeys(DiffCommand command)
+        {
+            var tables = _sourceTableRepository.GetAll();
+            var tableNames = command.AllTables ? tables.Select(t => t.Name).ToList() : TableHelper.ParseTableNames(command.TableNames);
+
+            foreach (var table in tables.Where(t => tableNames.Contains(t.Name)))
+                AddForeignKeys(command, table);
+        }
+
+        private void AddForeignKeys(DiffCommand command, Table table)
+        {
+            var sourceForeignKeys = _sourceTableRepository.GetForeignKeys(table.Name);
+            var targetForeignKeys = _targetTableRepository.GetForeignKeys(table.Name);
+            var foreignKeys = sourceForeignKeys.Where(t => targetForeignKeys.All(s => s.Name != t.Name)).ToList();
+
+            foreach (var foreignKey in foreignKeys)
+                AddForeignKey(command, table, foreignKey);
+        }
+
+        private static void AddForeignKey(DiffCommand command, Table table, ForeignKey foreignKey)
+        {
+            var changeSetCommand = new ChangeSetCommand(command.Author);
+            var builder = new AddForeignKeyConstraintChangeSetBuilder(foreignKey);
+            var changeSet = builder.Build(changeSetCommand);
+
+            var xml = changeSet.ToXml();
+            var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{foreignKey.Name.ToLower()}.foreign-key.xml");
             WriteFile(path, xml);
 
             ChangeSetCommand.Next();
