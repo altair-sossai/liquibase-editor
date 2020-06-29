@@ -1,4 +1,5 @@
-﻿using LiquibaseEditor.Infrastructure.Oracle.Repositories;
+﻿using LiquibaseEditor.Constants;
+using LiquibaseEditor.Infrastructure.Oracle.Repositories;
 using LiquibaseEditor.Infrastructure.Oracle.UnitOfWork;
 using LiquibaseEditor.Infrastructure.SqlServer.Repositories;
 using LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork;
@@ -13,8 +14,8 @@ namespace LiquibaseEditor.Factories
         {
             return unitOfWork.Database switch
             {
-                "SQL Server" => new TableRepositorySqlServer(unitOfWork as UnitOfWorkSqlServerDatabase),
-                "Oracle" => new TableRepositoryOracle(unitOfWork as UnitOfWorkOracleDatabase),
+                Databases.SqlServer => new TableRepositorySqlServer(unitOfWork as UnitOfWorkSqlServerDatabase),
+                Databases.Oracle => new TableRepositoryOracle(unitOfWork as UnitOfWorkOracleDatabase),
                 _ => null
             };
         }

@@ -2,35 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Liquibase Editor" WindowStartupLocation="CenterScreen"
-        Width="450" Height="340">
+        Width="350" Height="340">
     <StackPanel Margin="10">
-        <StackPanel>
-            <Label>Database</Label>
-            <ComboBox ItemsSource="{Binding Databases}" SelectedItem="{Binding Path=Command.Database}" />
-        </StackPanel>
-
-        <StackPanel>
-            <Label>Connection String</Label>
-            <TextBox Text="{Binding Path=Command.ConnectionString}" />
-        </StackPanel>
-
-        <StackPanel>
-            <Label>Table names (separate by ;)</Label>
-            <TextBox Text="{Binding Path=Command.TableNames}" />
-        </StackPanel>
-
-        <StackPanel>
-            <Label>Directory path:</Label>
-            <TextBox Text="{Binding Path=Command.DirectoryPath}" />
-        </StackPanel>
-
-        <StackPanel>
-            <Label>Author:</Label>
-            <TextBox Text="{Binding Path=Command.Author}" />
-        </StackPanel>
-
-        <Button HorizontalAlignment="Right" Content="Generate" Margin="0, 15" Width="90" Height="35"
-                Click="ButtonBase_OnClick" />
+        <Button Content="Generate" Margin="0, 15" Click="GenerateOnClick" />
 
     </StackPanel>
 </Window>

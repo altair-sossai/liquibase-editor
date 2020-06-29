@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
+using LiquibaseEditor.Constants;
 using LiquibaseEditor.UnitOfWork;
 using Oracle.ManagedDataAccess.Client;
 
@@ -29,7 +30,7 @@ namespace LiquibaseEditor.Infrastructure.Oracle.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public string Database => "Oracle";
+        public string Database => Databases.Oracle;
 
         public bool IsConnected()
         {

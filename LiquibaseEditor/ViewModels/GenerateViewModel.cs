@@ -20,7 +20,7 @@ namespace LiquibaseEditor.ViewModels
             Command = new GenerateCommand
             {
                 Author = "altair.sossai",
-                Database = "SQL Server",
+                Database = Constants.Databases.SqlServer,
                 DirectoryPath = @"E:\liquibase-editor",
                 TableNames = "GA_TIMESHEET; GA_TIMESHEET_ITEM"
             };
@@ -28,11 +28,7 @@ namespace LiquibaseEditor.ViewModels
             Command.UseSqlServerDefaultConfiguration();
         }
 
-        public List<string> Databases { get; set; } = new List<string>
-        {
-            "SQL Server",
-            "Oracle"
-        };
+        public List<string> Databases { get; set; } = Constants.Databases.Types;
 
         public GenerateCommand Command
         {
@@ -56,11 +52,11 @@ namespace LiquibaseEditor.ViewModels
 
             switch (Command.Database)
             {
-                case "SQL Server":
+                case Constants.Databases.SqlServer:
                     Command.UseSqlServerDefaultConfiguration();
                     break;
 
-                case "Oracle":
+                case Constants.Databases.Oracle:
                     Command.UseOracleDefaultConfiguration();
                     break;
             }

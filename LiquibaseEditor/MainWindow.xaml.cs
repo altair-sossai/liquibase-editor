@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using LiquibaseEditor.ViewModels;
+using LiquibaseEditor.Views;
 
 namespace LiquibaseEditor
 {
@@ -7,15 +7,12 @@ namespace LiquibaseEditor
     {
         public MainWindow()
         {
-            DataContext = new GenerateViewModel();
             InitializeComponent();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void GenerateOnClick(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as GenerateViewModel;
-
-            viewModel?.Generate();
+            GenerateView.Show();
         }
     }
 }

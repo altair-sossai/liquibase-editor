@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using LiquibaseEditor.Constants;
 using LiquibaseEditor.UnitOfWork;
 
 namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
@@ -12,8 +13,8 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
     {
         private readonly SqlConnection _connection;
         private readonly SqlTransaction _transaction;
-        private bool _disposed;
         private readonly bool _transactionHasOpen;
+        private bool _disposed;
 
         public UnitOfWorkSqlServerDatabase(string connectionString)
         {
@@ -29,7 +30,7 @@ namespace LiquibaseEditor.Infrastructure.SqlServer.UnitOfWork
             GC.SuppressFinalize(this);
         }
 
-        public string Database => "SQL Server";
+        public string Database => Databases.SqlServer;
 
         public bool IsConnected()
         {
