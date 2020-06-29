@@ -14,5 +14,10 @@ namespace LiquibaseEditor
         {
             GenerateView.Show();
         }
+
+        private void DiffOnClick(object sender, RoutedEventArgs e)
+        {
+            DiffView.Show();
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace LiquibaseEditor.Validators
         {
             try
             {
-                using var unitOfWork = UnitOfWorkFactory.New(command.Database, command.ConnectionString);
+                using var unitOfWork = UnitOfWorkFactory.New(command.Database, connectionString);
 
                 return unitOfWork.IsConnected();
             }

@@ -4,7 +4,7 @@
         Title="Liquibase Editor" WindowStartupLocation="CenterScreen"
         Width="350" Height="340">
     <StackPanel Margin="10">
-        <Button Content="Generate" Margin="0, 15" Click="GenerateOnClick" />
-
+        <Button Content="Generate" Margin="10" Click="GenerateOnClick" />
+        <Button Content="Diff" Margin="10" Click="DiffOnClick" />
     </StackPanel>
 </Window>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="LiquibaseEditor.Views.DiffView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="10">
+        <StackPanel>
+            <Label>Source Database</Label>
+            <ComboBox ItemsSource="{Binding Databases}" SelectedItem="{Binding Path=Command.SourceDatabase}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Source Connection String</Label>
+            <TextBox Text="{Binding Path=Command.SourceConnectionString}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Target Database</Label>
+            <ComboBox ItemsSource="{Binding Databases}" SelectedItem="{Binding Path=Command.TargetDatabase}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Target Connection String</Label>
+            <TextBox Text="{Binding Path=Command.TargetConnectionString}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Table names (separate by ;)</Label>
+            <TextBox Text="{Binding Path=Command.TableNames}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Directory path:</Label>
+            <TextBox Text="{Binding Path=Command.DirectoryPath}" />
+        </StackPanel>
+
+        <StackPanel>
+            <Label>Author:</Label>
+            <TextBox Text="{Binding Path=Command.Author}" />
+        </StackPanel>
+
+        <Button HorizontalAlignment="Right" Content="Diff" Margin="0, 15" Width="90" Height="35"
+                Click="ButtonBase_OnClick" />
+
+    </StackPanel>
+</UserControl>
