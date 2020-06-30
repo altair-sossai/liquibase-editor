@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Text;
 using FluentValidation;
 using LiquibaseEditor.Builders;
 using LiquibaseEditor.Commands;
@@ -65,7 +64,7 @@ namespace LiquibaseEditor.Services
 
             var xml = changeSet.ToXml();
             var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.drop.xml");
-            WriteFile(path, xml);
+            FileHelper.Write(path, xml);
 
             ChangeSetCommand.Next();
         }
@@ -102,7 +101,7 @@ namespace LiquibaseEditor.Services
 
             var xml = changeSet.ToXml();
             var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.add.xml");
-            WriteFile(path, xml);
+            FileHelper.Write(path, xml);
 
             ChangeSetCommand.Next();
         }
@@ -115,7 +114,7 @@ namespace LiquibaseEditor.Services
 
             var xml = changeSet.ToXml();
             var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{column.Name.ToLower()}.sequence.xml");
-            WriteFile(path, xml);
+            FileHelper.Write(path, xml);
 
             ChangeSetCommand.Next();
         }
@@ -147,17 +146,9 @@ namespace LiquibaseEditor.Services
 
             var xml = changeSet.ToXml();
             var path = Path.Combine(command.DirectoryPath, $"{ChangeSetCommand.Sequence:000}.{table.Name.ToLower()}.{foreignKey.Name.ToLower()}.foreign-key.xml");
-            WriteFile(path, xml);
+            FileHelper.Write(path, xml);
 
             ChangeSetCommand.Next();
-        }
-
-        private static void WriteFile(string path, string xml)
-        {
-            if (File.Exists(path))
-                File.Delete(path);
-
-            File.WriteAllText(path, xml, Encoding.Default);
         }
     }
 }
