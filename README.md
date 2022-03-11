@@ -1,6 +1,6 @@
 # liquibase-editor
 
-O objetivo do projeto é facilitar a geração de scripts Liquibase utilizando o banco de dados como referência;
+O objetivo do projeto é facilitar a geração de scripts Liquibase utilizando o banco de dados como referência.
 
 A aplicação se conecta atualmente apenas em bases SQL Server ou Oracle e realiza a engenharia reversa, transformando tabelas, colunas, chaves primarias e chaves estrangeiras em scripts Liquibase;
 
